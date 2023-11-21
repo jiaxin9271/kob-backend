@@ -1,19 +1,23 @@
 package com.kob.backend.controller.user.bot;
 
 import com.kob.backend.service.user.bot.RemoveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/user/bot")
+@Tag(name = "删除Bot")
 public class RemoveController {
     @Autowired
     private RemoveService removeService;
 
-    @PostMapping("/api/user/bot/remove/")
+    @PostMapping("/remove")
     public Map<String, String> remove(@RequestParam Map<String, String> data) {
         return removeService.remove(data);
     }

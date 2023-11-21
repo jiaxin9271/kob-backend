@@ -1,22 +1,17 @@
-# Getting Started
+# kob后端
 
-### Reference Documentation
+## 一、介绍
 
-For further reference, please consider the following sections:
+项目介绍：蛇蛇大作战线上对战平台后端，支持玩家根据分数自由匹配
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#web)
-* [Thymeleaf](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#web.servlet.spring-mvc.template-engines)
+技术栈：JDK17 + SpringBoot3 + SpringCloud + SpringSecurity + JWT 
++ WebSocket + Mysql + MyBatis-Plus + Docker
 
-### Guides
+视频抽帧：ffmpeg
 
-The following guides illustrate how to use some features concretely:
-
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Handling Form Submission](https://spring.io/guides/gs/handling-form-submission/)
+| 接口 | 说明 |
+| ---- | ---- |
+|      |      |
+|      |      |
+|      |      |
 

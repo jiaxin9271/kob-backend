@@ -34,12 +34,15 @@ public class SecurityConfig {
     private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     private final String[] PERMIT_URL = {
-            "/api/user/account/token/",
-            "/api/user/account/register/",
-            "/api/user/account/acwing/acapp/apply_code/",
-            "/api/user/account/acwing/acapp/receive_code/",
-            "/api/user/account/acwing/web/apply_code/",
-            "/api/user/account/acwing/web/receive_code/"
+            "/swagger-ui.html",
+            "/swagger-ui/*",
+            "/v3/api-docs/*",
+            "/api/user/account/token",
+            "/api/user/account/register",
+            "/api/user/account/acwing/acapp/apply_code",
+            "/api/user/account/acwing/acapp/receive_code",
+            "/api/user/account/acwing/web/apply_code",
+            "/api/user/account/acwing/web/receive_code"
     };
 
     @Bean
