@@ -25,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
                 new UsernamePasswordAuthenticationToken(username, password);
 
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);  // 登录失败，会自动处理
-        UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
+        UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();  // 把用户取出来
         User user = loginUser.getUser();
         String jwt = JwtUtil.createJWT(user.getId().toString());
 
