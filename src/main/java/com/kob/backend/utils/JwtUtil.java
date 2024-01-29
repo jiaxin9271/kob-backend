@@ -51,12 +51,23 @@ public class JwtUtil {
         return new SecretKeySpec(encodeKey, 0, encodeKey.length, "HmacSHA256");
     }
 
-    public static Claims parseJWT(String jwt) throws Exception {
+    public static Claims parseJWT(String jwt) {
         SecretKey secretKey = generalKey();
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(jwt)
                 .getBody();
+    }
+
+    public static Integer parseJWTAndGetSubject(String token) {
+        int userId;
+        try {
+            Claims claims = JwtUtil.parseJWT(token);
+            userId = Integer.parseInt(claims.getSubject());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return userId;
     }
 }

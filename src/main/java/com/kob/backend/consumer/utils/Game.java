@@ -5,6 +5,7 @@ import com.kob.backend.consumer.WebSocketServer;
 import com.kob.backend.pojo.Bot;
 import com.kob.backend.pojo.Record;
 import com.kob.backend.pojo.User;
+import lombok.Getter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -18,25 +19,21 @@ public class Game extends Thread {
     private final Integer rows;
     private final Integer cols;
     private final Integer inner_walls_count;
+    @Getter
     private final int[][] g;
     private final static int[] dx = {-1, 0, 1, 0}, dy = {0, 1, 0, -1};
-    private final Player playerA, playerB;
+    @Getter
+    private final Player playerA;
+    @Getter
+    private final Player playerB;
     private Integer nextStepA = null;
     private Integer nextStepB = null;
     private ReentrantLock lock = new ReentrantLock();
     private String status = "playing";  // playing -> finished
     private String loser = "";  // all: 平局，A: A输，B: B输
-    private final static String addBotUrl = "http://127.0.0.1:3002/bot/add/";
+    private final static String addBotUrl = "http://127.0.0.1:3002/bot/add";
 
-    public Game(
-            Integer rows,
-            Integer cols,
-            Integer inner_walls_count,
-            Integer idA,
-            Bot botA,
-            Integer idB,
-            Bot botB
-    ) {
+    public Game(Integer rows, Integer cols, Integer inner_walls_count, Integer idA, Bot botA, Integer idB, Bot botB) {
         this.rows = rows;
         this.cols = cols;
         this.inner_walls_count = inner_walls_count;
@@ -54,14 +51,7 @@ public class Game extends Thread {
         }
         playerA = new Player(idA, botIdA, botCodeA, rows - 2, 1, new ArrayList<>());
         playerB = new Player(idB, botIdB, botCodeB, 1, cols - 2, new ArrayList<>());
-    }
-
-    public Player getPlayerA() {
-        return playerA;
-    }
-
-    public Player getPlayerB() {
-        return playerB;
+        createMap();
     }
 
     public void setNextStepA(Integer nextStepA) {
@@ -82,15 +72,11 @@ public class Game extends Thread {
         }
     }
 
-    public int[][] getG() {
-        return g;
-    }
-
     private boolean check_connectivity(int sx, int sy, int tx, int ty) {
         if (sx == tx && sy == ty) return true;
         g[sx][sy] = 1;
 
-        for (int i = 0; i < 4; i ++ ) {
+        for (int i = 0; i < 4; i++) {
             int x = sx + dx[i], y = sy + dy[i];
             if (x >= 0 && x < this.rows && y >= 0 && y < this.cols && g[x][y] == 0) {
                 if (check_connectivity(x, y, tx, ty)) {
@@ -105,22 +91,22 @@ public class Game extends Thread {
     }
 
     private boolean draw() {  // 画地图
-        for (int i = 0; i < this.rows; i ++ ) {
-            for (int j = 0; j < this.cols; j ++ ) {
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
                 g[i][j] = 0;
             }
         }
 
-        for (int r = 0; r < this.rows; r ++ ) {
+        for (int r = 0; r < this.rows; r++) {
             g[r][0] = g[r][this.cols - 1] = 1;
         }
-        for (int c = 0; c < this.cols; c ++ ) {
+        for (int c = 0; c < this.cols; c++) {
             g[0][c] = g[this.rows - 1][c] = 1;
         }
 
         Random random = new Random();
-        for (int i = 0; i < this.inner_walls_count / 2; i ++ ) {
-            for (int j = 0; j < 1000; j ++ ) {
+        for (int i = 0; i < this.inner_walls_count / 2; i++) {
+            for (int j = 0; j < 1000; j++) {
                 int r = random.nextInt(this.rows);
                 int c = random.nextInt(this.cols);
 
@@ -138,9 +124,8 @@ public class Game extends Thread {
     }
 
     public void createMap() {
-        for (int i = 0; i < 1000; i ++ ) {
-            if (draw())
-                break;
+        for (int i = 0; i < 1000; i++) {
+            if (draw()) break;
         }
     }
 
@@ -182,7 +167,7 @@ public class Game extends Thread {
         sendBotCode(playerA);
         sendBotCode(playerB);
 
-        for (int i = 0; i < 50; i ++ ) {
+        for (int i = 0; i < 50; i++) {
             try {
                 Thread.sleep(100);
                 lock.lock();
@@ -208,12 +193,12 @@ public class Game extends Thread {
         Cell cell = cellsA.get(n - 1);
         if (g[cell.x][cell.y] == 1) return false;
 
-        for (int i = 0; i < n - 1; i ++ ) {
+        for (int i = 0; i < n - 1; i++) {
             if (cellsA.get(i).x == cell.x && cellsA.get(i).y == cell.y)
                 return false;
         }
 
-        for (int i = 0; i < n - 1; i ++ ) {
+        for (int i = 0; i < n - 1; i++) {
             if (cellsB.get(i).x == cell.x && cellsB.get(i).y == cell.y)
                 return false;
         }
@@ -263,8 +248,8 @@ public class Game extends Thread {
 
     private String getMapString() {
         StringBuilder res = new StringBuilder();
-        for (int i = 0; i < rows; i ++ ) {
-            for (int j = 0; j < cols; j ++ ) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 res.append(g[i][j]);
             }
         }
@@ -320,7 +305,7 @@ public class Game extends Thread {
 
     @Override
     public void run() {
-        for (int i = 0; i < 1000; i ++ ) {
+        for (int i = 0; i < 1000; i++) {
             if (nextStep()) {  // 是否获取了两条蛇的下一步操作
                 judge();
                 if (status.equals("playing")) {
