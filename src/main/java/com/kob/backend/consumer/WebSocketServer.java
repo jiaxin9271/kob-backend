@@ -176,11 +176,13 @@ public class WebSocketServer {
     private void move(int direction) {
         System.out.println("move " + direction);
         if (game.getPlayerA().getId().equals(user.getId())) {
-            if (game.getPlayerA().getBotId().equals(-1))  // 亲自出马
+            if (game.getPlayerA().getBotId().equals(-1)) { // 亲自出马
                 game.setNextStepA(direction);
-        } else if (game.getPlayerB().getId().equals(user.getId())) {
-            if (game.getPlayerB().getBotId().equals(-1))  // 亲自出马
+            }
+        } else if (game.getPlayerB().getId().equals(user.getId())) { // 亲自出马
+            if (game.getPlayerB().getBotId().equals(-1)){
                 game.setNextStepB(direction);
+            }
         }
     }
 
