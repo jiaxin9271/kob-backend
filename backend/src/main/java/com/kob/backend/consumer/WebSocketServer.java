@@ -26,7 +26,7 @@ public class WebSocketServer {
     final public static ConcurrentHashMap<Integer, WebSocketServer> users = new ConcurrentHashMap<>(); // 全局线程安全的哈希表
     private User user;
     private Session session = null;
-    public static UserMapper userMapper;
+    public static UserMapper userMapper; // 每个游戏线程都在用xxMapper，公共的东西用static，但是static不能用常规注入，只能用构造器方式注入
     public static RecordMapper recordMapper;
     private static BotMapper botMapper;
     public static RestTemplate restTemplate;
@@ -128,7 +128,7 @@ public class WebSocketServer {
             users.get(b.getId()).game = game;
         }
 
-        game.start();
+        game.start(); // 开启多线程
         JSONObject respGame = new JSONObject();
         respGame.put("a_id", game.getPlayerA().getId());
         respGame.put("a_sx", game.getPlayerA().getSx());
@@ -180,7 +180,7 @@ public class WebSocketServer {
                 game.setNextStepA(direction);
             }
         } else if (game.getPlayerB().getId().equals(user.getId())) { // 亲自出马
-            if (game.getPlayerB().getBotId().equals(-1)){
+            if (game.getPlayerB().getBotId().equals(-1)) {
                 game.setNextStepB(direction);
             }
         }

@@ -190,14 +190,16 @@ public class Game extends Thread {
 
     private boolean check_valid(List<Cell> cellsA, List<Cell> cellsB) {
         int n = cellsA.size();
-        Cell cell = cellsA.get(n - 1);
+        Cell cell = cellsA.get(n - 1); // 蛇头
         if (g[cell.x][cell.y] == 1) return false;
 
+        // A的蛇头碰到自己
         for (int i = 0; i < n - 1; i++) {
             if (cellsA.get(i).x == cell.x && cellsA.get(i).y == cell.y)
                 return false;
         }
 
+        // A的蛇头碰到B
         for (int i = 0; i < n - 1; i++) {
             if (cellsB.get(i).x == cell.x && cellsB.get(i).y == cell.y)
                 return false;
@@ -214,7 +216,6 @@ public class Game extends Thread {
         boolean validB = check_valid(cellsB, cellsA);
         if (!validA || !validB) {
             status = "finished";
-
             if (!validA && !validB) {
                 loser = "all";
             } else if (!validA) {
