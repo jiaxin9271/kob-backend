@@ -37,6 +37,7 @@ public class SecurityConfig {
             "/swagger-ui.html",
             "/swagger-ui/*",
             "/v3/api-docs/*",
+            "/error",
             "/api/user/account/token",
             "/api/user/account/register",
             "/api/user/account/acwing/acapp/apply_code",
@@ -80,7 +81,6 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(PERMIT_URL).permitAll()  // 放置公开链接
-                .requestMatchers("/error").permitAll() // 404
                 .anyRequest().authenticated()  // 其他接口进行鉴权
                 .and()
                 .cors().configurationSource(corsConfigurationSource()); // 跨域
