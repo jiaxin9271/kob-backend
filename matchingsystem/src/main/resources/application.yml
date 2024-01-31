@@ -1,2 +1,15 @@
 server:
   port: 3001
+
+logging:
+  file:
+    name: matchingsystem/logs/spring.log
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
+      file-name-pattern: matchingsystem/logs/spring.%d{yyyy-MM-dd}.%i.log
+  level:
+    root: info
+
+backend:
+  startGameUrl: http://127.0.0.1:9000/api/pk/start/game

@@ -20,8 +20,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final String[] PERMIT_URL = {
-            "/player/add/",
-            "/player/remove/",
+            "/player/add",
+            "/player/remove",
             "/error"
     };
 
@@ -34,13 +34,6 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers(PERMIT_URL).hasIpAddress("127.0.0.1")
                 .anyRequest().authenticated();  // 其他接口进行鉴权
-
-//        http.csrf().disable() // 关闭 csrf 防护
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 会话
-//                .and()
-//                .authorizeHttpRequests()
-//                .requestMatchers(PERMIT_URL).permitAll()  // 放置公开链接
-//                .anyRequest().authenticated();  // 其他接口进行鉴权
 
         return http.build();
     }

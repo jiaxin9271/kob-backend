@@ -33,7 +33,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-    private final String[] PERMIT_URL = {
+    private final String[] PERMIT_ALL = {
             "/swagger-ui.html",
             "/swagger-ui/*",
             "/v3/api-docs/*",
@@ -44,6 +44,11 @@ public class SecurityConfig {
             "/api/user/account/acwing/acapp/receive_code",
             "/api/user/account/acwing/web/apply_code",
             "/api/user/account/acwing/web/receive_code"
+    };
+
+    private final String[] PERMIT_LOCAL = {
+            "/api/pk/start/game",
+            "/api/pk/receive/bot/move"
     };
 
     @Bean
@@ -76,11 +81,20 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.csrf().disable() // 关闭 csrf 防护
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeHttpRequests()
+//                .requestMatchers(PERMIT_ALL).permitAll()  // 放置公开链接
+//                .anyRequest().authenticated()  // 其他接口进行鉴权
+//                .and()
+//                .cors().configurationSource(corsConfigurationSource()); // 跨域
         http.csrf().disable() // 关闭 csrf 防护
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 会话
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests()
-                .requestMatchers(PERMIT_URL).permitAll()  // 放置公开链接
+                .authorizeRequests()
+                .requestMatchers(PERMIT_ALL).permitAll()  // 放置公开链接
+                .requestMatchers(PERMIT_LOCAL).hasIpAddress("127.0.0.1")
                 .anyRequest().authenticated()  // 其他接口进行鉴权
                 .and()
                 .cors().configurationSource(corsConfigurationSource()); // 跨域

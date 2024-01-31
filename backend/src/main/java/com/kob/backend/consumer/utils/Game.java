@@ -6,6 +6,7 @@ import com.kob.backend.pojo.Bot;
 import com.kob.backend.pojo.Record;
 import com.kob.backend.pojo.User;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
+@Slf4j
 public class Game extends Thread {
     private final Integer rows;
     private final Integer cols;
@@ -181,7 +183,7 @@ public class Game extends Thread {
                     lock.unlock();
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("exception message", e);
             }
         }
 

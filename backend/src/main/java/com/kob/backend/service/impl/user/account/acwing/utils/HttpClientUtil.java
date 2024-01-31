@@ -1,5 +1,6 @@
 package com.kob.backend.service.impl.user.account.acwing.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,13 +14,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
+@Slf4j
 public class HttpClientUtil {
     public static String get(String url, List<NameValuePair> params) {
         URIBuilder uriBuilder = null;
         try {
             uriBuilder = new URIBuilder(url);
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            log.error("exception message", e);
             return null;
         }
         uriBuilder.setParameters(params);
@@ -30,7 +32,7 @@ public class HttpClientUtil {
             HttpEntity entity = response.getEntity();
             return EntityUtils.toString(entity);
         } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+            log.error("exception message", e);
             return null;
         }
     }

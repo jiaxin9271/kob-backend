@@ -7,6 +7,7 @@ import com.kob.backend.pojo.User;
 import com.kob.backend.service.impl.user.account.acwing.utils.HttpClientUtil;
 import com.kob.backend.service.user.account.acwing.WebService;
 import com.kob.backend.utils.JwtUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+@Slf4j
 @Service
 public class WebServiceImpl implements WebService {
     private final static String appId = "2703";
@@ -41,7 +43,7 @@ public class WebServiceImpl implements WebService {
         try {
             encodeUrl = URLEncoder.encode(redirectUri, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            log.error("exception message", e);
             resp.put("result", "failed");
             return resp;
         }

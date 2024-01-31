@@ -11,3 +11,17 @@ spring:
 mybatis-plus:
   global-config:
     banner: false
+
+logging:
+  file:
+    name: backend/logs/spring.log
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
+      file-name-pattern: backend/logs/spring.%d{yyyy-MM-dd}.%i.log
+  level:
+    root: info
+
+matching-system:
+  addPlayerUrl: http://127.0.0.1:3001/player/add
+  removePlayerUrl: http://127.0.0.1:3001/player/remove
