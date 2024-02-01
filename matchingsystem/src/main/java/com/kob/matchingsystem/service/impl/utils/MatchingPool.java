@@ -1,5 +1,6 @@
 package com.kob.matchingsystem.service.impl.utils;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +37,15 @@ public class MatchingPool extends Thread {
     @Autowired
     public void setRestTemplate(RestTemplate restTemplate) {
         MatchingPool.restTemplate = restTemplate;
+    }
+
+    public int getPlayerNumber() {
+        lock.lock();
+        try {
+            return players.size();
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void addPlayer(Integer userId, Integer rating, Integer botId) {

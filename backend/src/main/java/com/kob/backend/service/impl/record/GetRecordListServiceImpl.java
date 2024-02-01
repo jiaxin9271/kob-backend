@@ -26,7 +26,7 @@ public class GetRecordListServiceImpl implements GetRecordListService {
     public JSONObject getList(Integer page) {
         IPage<Record> recordIPage = new Page<>(page, 10);
         QueryWrapper<Record> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("id");
+        queryWrapper.orderByDesc("id"); // 查看所有人的对战信息
         List<Record> records = recordMapper.selectPage(recordIPage, queryWrapper).getRecords();
         JSONObject resp = new JSONObject();
         List<JSONObject> items = new LinkedList<>();

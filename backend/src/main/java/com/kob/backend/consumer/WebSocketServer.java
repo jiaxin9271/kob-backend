@@ -44,6 +44,7 @@ public class WebSocketServer {
     public Game game = null;
     private static String addPlayerUrl;
     private static String removePlayerUrl;
+    public static String addBotUrl;
 
     @Value("${matching-system.addPlayerUrl}")
     public void setAddPlayerUrl(String addPlayerUrl) {
@@ -53,6 +54,11 @@ public class WebSocketServer {
     @Value("${matching-system.removePlayerUrl}")
     public void setRemovePlayerUrl(String removePlayerUrl) {
         WebSocketServer.removePlayerUrl = removePlayerUrl;
+    }
+
+    @Value("${botrunning-system.addBotUrl}")
+    public void setAddBotUrl(String addBotUrl) {
+        WebSocketServer.addBotUrl = addBotUrl;
     }
 
     @Autowired

@@ -25,3 +25,6 @@ logging:
 matching-system:
   addPlayerUrl: http://127.0.0.1:3001/player/add
   removePlayerUrl: http://127.0.0.1:3001/player/remove
+
+botrunning-system:
+  addBotUrl: http://127.0.0.1:3002/botrunning/add

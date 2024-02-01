@@ -1,0 +1,15 @@
+server:
+  port: 3002
+
+logging:
+  file:
+    name: botrunningsystem/logs/spring.log
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
+      file-name-pattern: botrunningsystem/logs/spring.%d{yyyy-MM-dd}.%i.log
+  level:
+    root: info
+
+backend:
+  receiveBotMoveUrl: http://127.0.0.1:9000/api/pk/receive/bot/move

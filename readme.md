@@ -2,9 +2,15 @@
 
 ## 一、介绍
 
-真的很推荐五子棋：min-max ai算法
+项目介绍：蛇蛇大作战线上对战平台
 
-项目介绍：蛇蛇大作战线上对战平台后端，支持玩家根据分数自由匹配
+增加1：使用alpha-beta剪枝算法实现一个强ai
+
+增加2：对战大厅实现公共聊天系统
+
+增加3：对战回访实现弹幕
+
+增加4：排行榜和对局列表使用redis
 
 技术栈：JDK17 + SpringBoot3 + SpringCloud + SpringSecurity + JWT + WebSocket + Mysql + MyBatis-Plus + Docker
 
@@ -21,6 +27,3 @@
 | /api/ranklist/getlist  | 排行榜   |
 | /api/pk/start/game  | 开始游戏  |
 | /api/pk/receive/bot/move   | bot移动 | 
-
-
-

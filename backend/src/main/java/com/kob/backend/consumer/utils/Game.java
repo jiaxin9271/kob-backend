@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,10 +29,9 @@ public class Game extends Thread {
     private final Player playerB;
     private Integer nextStepA = null;
     private Integer nextStepB = null;
-    private ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock = new ReentrantLock();
     private String status = "playing";  // playing -> finished
     private String loser = "";  // all: 平局，A: A输，B: B输
-    private final static String addBotUrl = "http://127.0.0.1:3002/bot/add";
 
     public Game(Integer rows, Integer cols, Integer inner_walls_count, Integer idA, Bot botA, Integer idB, Bot botB) {
         this.rows = rows;
@@ -156,7 +154,7 @@ public class Game extends Thread {
         data.add("user_id", player.getId().toString());
         data.add("bot_code", player.getBotCode());
         data.add("input", getInput(player));
-        WebSocketServer.restTemplate.postForObject(addBotUrl, data, String.class);
+        WebSocketServer.restTemplate.postForObject(WebSocketServer.addBotUrl, data, String.class);
     }
 
     private boolean nextStep() {  // 等待两名玩家的下一步操作
