@@ -12,4 +12,4 @@ logging:
     root: info
 
 backend:
-  startGameUrl: http://127.0.0.1:9000/api/pk/start/game
+  startGameUrl: http://127.0.0.1:3000/api/pk/start/game
