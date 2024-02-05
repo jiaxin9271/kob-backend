@@ -4,15 +4,15 @@
 
 项目介绍：蛇蛇大作战线上对战平台
 
-增加1：使用alpha-beta剪枝算法实现一个强ai
+增加1：使用alpha-beta剪枝算法实现一个强AI
 
-增加2：对战大厅实现公共聊天系统
+增加2：对战大厅增加公共聊天系统
 
-增加3：对战回访实现弹幕
+增加3：对战回放增加弹幕
 
 增加4：排行榜和对局列表使用redis
 
-技术栈：JDK17 + SpringBoot3 + SpringCloud + SpringSecurity + JWT + WebSocket + Mysql + MyBatis-Plus + Docker
+技术栈：JDK17 + SpringBoot3 + SpringCloud + SpringSecurity + JWT + WebSocket + Mysql + MyBatis-Plus + Docker + Redis
 
 | 接口                      | 说明    |
 |-------------------------|-------|
