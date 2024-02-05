@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Bot implements java.util.function.Supplier<Integer> {
-    static class Cell {
-        public int x, y;
-        public Cell(int x, int y) {
+   static class Cell {
+        int x, y;
+        Cell(int x, int y) {
             this.x = x;
             this.y = y;
         }

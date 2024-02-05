@@ -7,6 +7,10 @@ spring:
     url: jdbc:mysql://119.23.67.36:3307/kob?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
 
 mybatis-plus:
   global-config:
@@ -28,3 +32,10 @@ matching-system:
 
 botrunning-system:
   addBotUrl: http://127.0.0.1:3002/botrunning/add
+
+acwing-web-service:
+  appId: 6533
+  appSecret: 166864b25e84471da52c0d97dde32f20
+  redirectUri: http://119.23.67.36/user/account/acwing/web/receive_code
+  applyAccessTokenUrl: https://www.acwing.com/third_party/api/oauth2/access_token/
+  getUserInfoUrl: https://www.acwing.com/third_party/api/meta/identity/getinfo/

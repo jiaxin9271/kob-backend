@@ -3,7 +3,6 @@ package com.kob.matchingsystem.service.impl;
 import com.kob.matchingsystem.service.MatchingService;
 import com.kob.matchingsystem.service.impl.utils.MatchingPool;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j

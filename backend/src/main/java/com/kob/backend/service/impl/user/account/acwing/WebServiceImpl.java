@@ -11,11 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,36 +25,34 @@ import java.util.Random;
 @Slf4j
 @Service
 public class WebServiceImpl implements WebService {
-    private final static String appId = "2703";
-    private final static String appSecret = "dfa492fef91143c19f81603c27355197";
-    private final static String redirectUri = "https://app2703.acapp.acwing.com.cn/user/account/acwing/web/receive_code/";
-    private final static String applyAccessTokenUrl = "https://www.acwing.com/third_party/api/oauth2/access_token/";
-    private final static String getUserInfoUrl = "https://www.acwing.com/third_party/api/meta/identity/getinfo/";
+    @Value("${acwing-web-service.appId}")
+    private String appId;
+    @Value("${acwing-web-service.appSecret}")
+    private String appSecret;
+    @Value("${acwing-web-service.redirectUri}")
+    private String redirectUri;
+    @Value("${acwing-web-service.applyAccessTokenUrl}")
+    private String applyAccessTokenUrl;
+    @Value("${acwing-web-service.getUserInfoUrl}")
+    private String getUserInfoUrl;
     private final static Random random = new Random();
     @Autowired
     private UserMapper userMapper;
-
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
     @Override
     public JSONObject applyCode() {
         JSONObject resp = new JSONObject();
-        String encodeUrl = "";
-        try {
-            encodeUrl = URLEncoder.encode(redirectUri, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            log.error("exception message", e);
-            resp.put("result", "failed");
-            return resp;
-        }
+        String encodeUrl = URLEncoder.encode(redirectUri, StandardCharsets.UTF_8);
         StringBuilder state = new StringBuilder();
         for (int i = 0; i < 10; i ++ )
             state.append((char) (random.nextInt(10) + '0'));
-        resp.put("result", "success");
+        resp.put("error_message", "success");
         redisTemplate.opsForValue().set(state.toString(), "true");
-        redisTemplate.expire(state.toString(), Duration.ofMinutes(10));  // 10分钟
+        redisTemplate.expire(state.toString(), Duration.ofMinutes(10));  // 10分钟内state是有效的
 
+        // 跳转到授权页面
         String applyCodeUrl = "https://www.acwing.com/third_party/api/oauth2/web/authorize/?appid=" + appId
                 + "&redirect_uri=" + encodeUrl
                 + "&scope=userinfo"
@@ -66,7 +65,7 @@ public class WebServiceImpl implements WebService {
     @Override
     public JSONObject receiveCode(String code, String state) {
         JSONObject resp = new JSONObject();
-        resp.put("result", "failed");
+        resp.put("error_message", "failed");
         if (code == null || state == null) return resp;
         if (Boolean.FALSE.equals(redisTemplate.hasKey(state))) return resp;
         redisTemplate.delete(state);
@@ -87,8 +86,8 @@ public class WebServiceImpl implements WebService {
         List<User> users = userMapper.selectList(queryWrapper);
         if (!users.isEmpty()) {
             User user = users.get(0);
-            String jwt = JwtUtil.createJWT(user.getId().toString());
-            resp.put("result", "success");
+            String jwt = JwtUtil.createJWT(user);
+            resp.put("error_message", "success");
             resp.put("jwt_token", jwt);
             return resp;
         }
@@ -112,17 +111,10 @@ public class WebServiceImpl implements WebService {
             if (i == 99) return resp;
         }
 
-        User user = new User(
-                null,
-                username,
-                null,
-                photo,
-                1500,
-                openid
-        );
+        User user = new User(null, username, null, photo, 1500, openid);
         userMapper.insert(user);
-        String jwt = JwtUtil.createJWT(user.getId().toString());
-        resp.put("result", "success");
+        String jwt = JwtUtil.createJWT(user);
+        resp.put("error_message", "success");
         resp.put("jwt_token", jwt);
         return resp;
     }

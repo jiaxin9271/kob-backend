@@ -86,6 +86,7 @@ public class SecurityConfig {
 //                .and()
 //                .authorizeHttpRequests()
 //                .requestMatchers(PERMIT_ALL).permitAll()  // 放置公开链接
+//                .requestMatchers(PERMIT_LOCAL).permitAll()  // 放置公开链接
 //                .anyRequest().authenticated()  // 其他接口进行鉴权
 //                .and()
 //                .cors().configurationSource(corsConfigurationSource()); // 跨域

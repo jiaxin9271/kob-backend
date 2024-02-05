@@ -87,15 +87,14 @@ public class WebSocketServer {
     @OnOpen
     public void onOpen(Session session, @PathParam("token") String token) throws IOException {
         this.session = session;
-        Integer userId = JwtUtil.parseJWTAndGetSubject(token);
+        Integer userId = JwtUtil.parseJWT(token);
         this.user = userMapper.selectById(userId);
         if (this.user != null) {
             users.put(userId, this);
         } else {
             this.session.close();
         }
-        log.info("connected!");
-        log.info("users: " + users);
+        log.info("WebSocket connected!");
     }
 
     /**
@@ -103,7 +102,7 @@ public class WebSocketServer {
      */
     @OnClose
     public void onClose() {
-        log.info("disconnected!");
+        log.info("WebSocket disconnected!");
         if (this.user != null) {
             users.remove(this.user.getId());
         }
@@ -114,7 +113,6 @@ public class WebSocketServer {
      */
     @OnMessage
     public void onMessage(String message, Session session) {  // 当做路由
-        log.info("receive message!");
         JSONObject data = JSONObject.parseObject(message);
         String event = data.getString("event");
         if ("start-matching".equals(event)) {
@@ -183,7 +181,6 @@ public class WebSocketServer {
     }
 
     private void startMatching(Integer botId) {
-        log.info("start matching!");
         MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
         data.add("user_id", this.user.getId().toString());
         data.add("rating", this.user.getRating().toString());
@@ -192,14 +189,12 @@ public class WebSocketServer {
     }
 
     private void stopMatching() {
-        log.info("stop matching");
         MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
         data.add("user_id", this.user.getId().toString());
         restTemplate.postForObject(removePlayerUrl, data, String.class);
     }
 
     private void move(int direction) {
-        log.info("move " + direction);
         if (game.getPlayerA().getId().equals(user.getId())) {
             if (game.getPlayerA().getBotId().equals(-1)) { // 亲自出马
                 game.setNextStepA(direction);

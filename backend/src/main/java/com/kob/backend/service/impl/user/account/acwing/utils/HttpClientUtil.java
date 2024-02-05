@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class HttpClientUtil {
     public static String get(String url, List<NameValuePair> params) {
-        URIBuilder uriBuilder = null;
+        URIBuilder uriBuilder;
         try {
             uriBuilder = new URIBuilder(url);
         } catch (URISyntaxException e) {

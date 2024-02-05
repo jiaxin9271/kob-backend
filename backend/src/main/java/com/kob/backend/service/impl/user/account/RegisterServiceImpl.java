@@ -63,7 +63,7 @@ public class RegisterServiceImpl implements RegisterService {
         String encodedPassword = passwordEncoder.encode(password);
 
         Random random = new Random();
-        String[] defaultPhotos = {"0.png", "1_1db2488f17-anonymous.png", "189837_lg_46b813bdbe.jpg", "229905_lg_711af11653.jpg",
+        String[] defaultPhotos = {"0.png", "189837_lg_46b813bdbe.jpg", "229905_lg_711af11653.jpg",
                 "322422_lg_7104144020.png", "358977_lg_a935f946b2.png", "368735_lg_c38cd03cb3.jpg"
         };
         String photo = "http://119.23.67.36/static_image/" + defaultPhotos[random.nextInt(defaultPhotos.length)];
