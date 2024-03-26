@@ -1,0 +1,55 @@
+{
+  "name": "kob-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "test": "vite --mode test",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "ts": "vue-tsc --noEmit",
+    "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx --max-warnings 0"
+  },
+  "lint-staged": {
+    "src/**/*.{vue,js,jsx,ts,tsx,json}": [
+      "yarn run lint",
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "@popperjs/core": "^2.11.8",
+    "ace-builds": "^1.32.3",
+    "axios": "^1.6.1",
+    "bootstrap": "^5.3.0-alpha1",
+    "core-js": "^3.33.2",
+    "element-plus": "^2.4.2",
+    "pinia": "^2.0.35",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5",
+    "vue3-ace-editor": "^2.2.4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.0",
+    "@commitlint/config-conventional": "^18.4.0",
+    "@types/node": "^20.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.11.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
+    "prettier": "^2.8.8",
+    "sass": "^1.69.5",
+    "typescript": "^5.0.2",
+    "unplugin-auto-import": "^0.16.7",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^4.5.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vue-tsc": "^1.8.19"
+  }
+}
