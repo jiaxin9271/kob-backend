@@ -1,6 +1,6 @@
 # kob后端
 
-**技术栈：**SpringBoot、SpringCloud、SpringSecurity、Jwt、WebSocket、MybatisPlus、Redis、RabbitMQ
+**技术栈**：SpringBoot、SpringCloud、SpringSecurity、Jwt、WebSocket、MybatisPlus、Redis、RabbitMQ
 
 **项目描述**：类贪吃蛇的线上对战游戏，包含玩家匹配系统、联机对战、人机对战、个性定制Bot、大厅聊天室、对局录像回放、积分排行榜等功能。
 
